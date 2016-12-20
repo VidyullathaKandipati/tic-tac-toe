@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css?family=Mirza');
+body{
+  background: url("../images/BG_wood2.jpg");
+  background-repeat: repeat;
+}
+.container{
+  max-width: 960px;
+  margin: 0 auto;
+  font-family: 'Mirza', cursive;
+  box-sizing: border-box;
+}
+.welcome{
+  margin-top: 50px;
+  text-align: center;
+}
+input{
+  cursor: pointer;
+  background-color: #4d2400;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffe9d0;
+  border-radius: 1em;
+}
+.keys{
+  width: 60px;
+}
+#player1{
+  width: 10%;
+  border: 1px solid black;
+  text-align: center;
+  float: left;
+  /*display: inline-block;*/
+  /*vertical-align: top;*/
+  margin: 0 auto;
+  /*visibility: hidden;*/
+}
+#player2{
+  width: 10%;
+  border: 1px solid black;
+  text-align: center;
+  float: right;
+  margin: 0 auto;
+}
+.game-board{
+  visibility: hidden;
+  /*visibility: visible;*/
+  margin-top: 2em;
+  text-align: center;
+  width: 33.333%;
+  margin: 0 auto;
+  color: #ffe9d0;
+  font-size: 32px;
+}
+.game-keys{
+  float: left;
+  background-color: #7e490c;
+  width: 100px;
+  height: 100px;
+  color: #ffe9d0;
+  font-size: 70px;
+  border: 1px solid #ffe9d0;
+  overflow: hidden;
+  line-height: 120px;
+}
+.game-over{
+  visibility: hidden;
+  text-align: center;
+}
+.new-or-quit{
+  visibility: hidden;
+  margin-top: 10px;
+  text-align: center;
+}
+.visible{
+  visibility: visible;
+}
+.hide{
+  visibility: hidden;
+}
+.clear{
+  clear: both;
+}

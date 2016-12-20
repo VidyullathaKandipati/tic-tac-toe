@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Tic-Tac-Tao</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/jQuery.js"></script>
+  <script src="js/ticTacToe.js"></script>
+</head>
+<body>
+<div class="container">
+  <div class="welcome">
+    <h1>Welcome to the game <br>Tic-Tac-Toe</h1>
+    <h2 id="beforeClick">Player 1 please choose your game key from the below:</h2>
+    <h2 id="afterClick"></h2>
+    <input class="keys" id="key1" type="button" value="X">
+    <input class= "keys" id="key2" type="button" value="O">
+  </div>
+  <div id="player1">
+    <h2>Player 1</h2>
+  </div>
+  <div class="game-board">
+      <div class="game-keys" id="k1"></div>
+      <div class="game-keys" id="k2"></div>
+      <div class="game-keys" id="k3"></div>
+      <div class="game-keys" id="k4"></div>
+      <div class="game-keys" id="k5"></div>
+      <div class="game-keys" id="k6"></div>
+      <div class="game-keys" id="k7"></div>
+      <div class="game-keys" id="k8"></div>
+      <div class="game-keys" id="k9"></div>
+  </div>
+  <div class="clear"></div>
+
+  <div id="player2">
+    <h2>Player 2</h2>
+  </div>
+  <div class="clear"></div>
+
+  <div class="game-over">
+  </div>
+  <div class="new-or-quit">
+    <input id="new-game" type="button" value="New Game">
+    <input id="quit" type="button" value="Quit">
+  </div>
+
+</div>
+</body>
+</html>

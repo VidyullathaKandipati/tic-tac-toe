@@ -29,11 +29,8 @@ input{
   text-align: center;
   margin: 0 auto;
   font-weight: bold;
-  font-size: 1.5em;
+  font-size: 16pt;
   display: none;
-}
-#draw{
-  padding-top: 50px;
 }
 .game-board{
   display: none;

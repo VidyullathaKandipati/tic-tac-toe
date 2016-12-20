@@ -1,11 +1,11 @@
 //Display and Update scores of each players on the sides of game board
 function updateScores(){
   var p1Text = p1ScoreText + player1Scores;
-  $('#p1').text(p1Text);
+  $('#p1 h2').text(p1Text);
   var p2Text = p2ScoreText + player2Scores;
-  $('#p2').text(p2Text);
+  $('#p2 h2').text(p2Text);
   var dText = drawText + drawCount;
-  $('#draw').text(dText);
+  $('#draw h2').text(dText);
 }
 
 //Initialise player keys and display on html

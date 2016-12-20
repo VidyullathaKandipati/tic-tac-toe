@@ -29,12 +29,14 @@ input{
   text-align: center;
   margin: 0 auto;
   font-weight: bold;
-  font-size: 26px;
-  visibility: hidden;
+  font-size: 1.5em;
+  display: none;
+}
+#draw{
+  padding-top: 50px;
 }
 .game-board{
-  visibility: hidden;
-  /*visibility: visible;*/
+  display: none;
   margin-top: 2em;
   text-align: center;
   width: 308px;
@@ -43,7 +45,6 @@ input{
   font-size: 32px;
 }
 .game-keys{
-  /*display: inline-block;*/
   float: left;
   background-color: #7e490c;
   width: 100px;
@@ -55,19 +56,13 @@ input{
   line-height: 120px;
 }
 .game-over{
-  visibility: hidden;
+  display: none;
   text-align: center;
 }
 .new-or-quit{
-  visibility: hidden;
+  display: none;
   margin-top: 10px;
   text-align: center;
-}
-.visible{
-  visibility: visible;
-}
-.hide{
-  visibility: hidden;
 }
 .clear{
   clear: both;

@@ -1,3 +1,9 @@
+/* ============================================= */
+/*  A more complicated win solution (C++ way)
+      and only half of the webpage is done
+      Win solution is full though     */
+/* ===============================================*/
+
 $(document).ready(function(){
   //Display game board upon selection of the key
   var player1;

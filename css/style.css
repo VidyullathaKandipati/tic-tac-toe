@@ -24,34 +24,26 @@ input{
 .keys{
   width: 60px;
 }
-#player1{
-  width: 10%;
-  border: 1px solid black;
+.player{
+  width: 80%;
   text-align: center;
-  float: left;
-  /*display: inline-block;*/
-  /*vertical-align: top;*/
   margin: 0 auto;
-  /*visibility: hidden;*/
-}
-#player2{
-  width: 10%;
-  border: 1px solid black;
-  text-align: center;
-  float: right;
-  margin: 0 auto;
+  font-weight: bold;
+  font-size: 26px;
+  visibility: hidden;
 }
 .game-board{
   visibility: hidden;
   /*visibility: visible;*/
   margin-top: 2em;
   text-align: center;
-  width: 33.333%;
+  width: 308px;
   margin: 0 auto;
   color: #ffe9d0;
   font-size: 32px;
 }
 .game-keys{
+  /*display: inline-block;*/
   float: left;
   background-color: #7e490c;
   width: 100px;
@@ -79,4 +71,21 @@ input{
 }
 .clear{
   clear: both;
+}
+
+.left, .right{
+  width: 18%;
+}
+
+.middle{
+  width: 60%;
+}
+
+.column{
+  display: inline-block;
+  vertical-align: top;
+}
+
+.title{
+  height: 290px;
 }

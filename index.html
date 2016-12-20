@@ -11,6 +11,10 @@
 </head>
 <body>
 <div class="container">
+
+<div class="column title left"></div>
+<div class="column title middle">
+
   <div class="welcome">
     <h1>Welcome to the game <br>Tic-Tac-Toe</h1>
     <h2 id="beforeClick">Player 1 please choose your game key from the below:</h2>
@@ -18,33 +22,48 @@
     <input class="keys" id="key1" type="button" value="X">
     <input class= "keys" id="key2" type="button" value="O">
   </div>
-  <div id="player1">
-    <h2>Player 1</h2>
-  </div>
+
+
+</div>
+<div class="column title right"></div>
+
+<div class="column left">
+
+    <div class="player" id="p1">
+      <h2>Player 1 <br>Scores: </h2>
+    </div>
+
+</div>
+<div class="column middle">
+
   <div class="game-board">
-      <div class="game-keys" id="k1"></div>
-      <div class="game-keys" id="k2"></div>
-      <div class="game-keys" id="k3"></div>
-      <div class="game-keys" id="k4"></div>
-      <div class="game-keys" id="k5"></div>
-      <div class="game-keys" id="k6"></div>
-      <div class="game-keys" id="k7"></div>
-      <div class="game-keys" id="k8"></div>
-      <div class="game-keys" id="k9"></div>
+      <div class="game-keys" id="00"></div>
+      <div class="game-keys" id="01"></div>
+      <div class="game-keys" id="02"></div>
+      <div class="game-keys" id="10"></div>
+      <div class="game-keys" id="11"></div>
+      <div class="game-keys" id="12"></div>
+      <div class="game-keys" id="20"></div>
+      <div class="game-keys" id="21"></div>
+      <div class="game-keys" id="22"></div>
   </div>
-  <div class="clear"></div>
 
-  <div id="player2">
-    <h2>Player 2</h2>
-  </div>
   <div class="clear"></div>
-
   <div class="game-over">
   </div>
   <div class="new-or-quit">
     <input id="new-game" type="button" value="New Game">
-    <input id="quit" type="button" value="Quit">
+    <input id="reset-scores" type="button" value="Reset Scores">
   </div>
+
+</div>
+<div class="column right">
+
+  <div class="player" id="p2">
+    <h2>Player 2 <br>Scores: </h2>
+  </div>
+
+</div>
 
 </div>
 </body>

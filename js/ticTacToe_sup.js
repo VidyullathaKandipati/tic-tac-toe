@@ -116,9 +116,11 @@ function resumeGame(){
     $('#beforeClick').fadeIn("slow");
   }
   else{
-    $('#beforeClick').fadeOut(100).delay(1000);
-    $('.keys').fadeOut("fast");
-    initGame(player1);
+    if (player1 !== undefined){
+      $('#beforeClick').fadeOut(100).delay(1000);
+      $('.keys').fadeOut("fast");
+      initGame(player1);
+    }
     for (var i=0; i<3; i++){
       for (var j=0; j<3; j++){
         if(localStorage["k"+i+j] !== '0'){

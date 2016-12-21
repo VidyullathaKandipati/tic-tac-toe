@@ -11,6 +11,9 @@ $(document).ready(function(){
   }
   updateScoreElements();  //Called outside as this need to be called only once.
 
+  //Resume game where we left;
+  resumeGame();
+
   //On Click Event listeners
   $('#key1, #key2').on('click', displayBoard);
   $('.game-keys').on('click', updateGame);
@@ -23,7 +26,7 @@ $(document).ready(function(){
     miscButtonClick.play();
     $('.keys').fadeOut("slow");
     //this need to be faded out fast for smooth transition for another header
-    $('#beforeClick').fadeOut(100);
+    $('#beforeClick').fadeOut(100).delay( 800 );
     //Display game board and new game buttons
     $('.game-board').fadeIn("slow");
     $('.new-or-quit').fadeIn("slow");
@@ -31,6 +34,8 @@ $(document).ready(function(){
     updateScores();
     $('.player').fadeIn("slow");
     initGame($(this).val());
+
+    saveGame();
   }
 
   function updateGame() {
@@ -64,6 +69,7 @@ $(document).ready(function(){
         gameOver = true;
       }
     }
+    saveGame();
   }
 
   function refresh() {
@@ -79,6 +85,7 @@ $(document).ready(function(){
 
     startNewGame(); //Initializes the global game variables
     $('.game-keys').text(''); //Resets text from all the cells
+    saveGame();
   }
 
   //Does start a new game and resets scores
@@ -89,5 +96,6 @@ $(document).ready(function(){
     player2Scores = 0;
     drawCount = 0;
     updateScores();
+    saveGame();
   }
 });

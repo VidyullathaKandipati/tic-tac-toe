@@ -10,7 +10,6 @@ function updateScores(){
 
 //Initialise player keys and display on html
 function initGame(playKey) {
-  // startNewGame();
   player1 = playKey;
   player2 = (playKey === 'X') ? 'O': 'X';
   $('#afterClick').text("Player 1 has chosen "+player1+" Player 2 gets  "+player2);
@@ -77,6 +76,7 @@ function startNewGame(){
 
 //For localStorage
 function saveGame(){
+  localStorage["resume"] = resume;
   localStorage["numOfMoves"] = numOfMoves;
   for (var i=0; i<3; i++){
     for (var j=0; j<3; j++){

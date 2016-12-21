@@ -12,7 +12,10 @@ $(document).ready(function(){
   updateScoreElements();  //Called outside as this need to be called only once.
 
   //Resume game where we left;
-  resumeGame();
+  resume = localStorage["resume"] === "true" ? true : false;
+  if(resume){
+    resumeGame();
+  }
 
   //On Click Event listeners
   $('#key1, #key2').on('click', displayBoard);
@@ -22,6 +25,7 @@ $(document).ready(function(){
 
   //Event listener functions
   function displayBoard(){
+    resume = true;
     //hide key selection
     miscButtonClick.play();
     $('.keys').fadeOut("slow");

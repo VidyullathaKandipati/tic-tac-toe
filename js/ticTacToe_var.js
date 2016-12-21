@@ -23,5 +23,6 @@ var board = [ [0,0,0],
 var p1ScoreText;
 var p2ScoreText;
 var drawText;
+var resume;
 
 // });

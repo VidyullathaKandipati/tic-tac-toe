@@ -29,7 +29,9 @@ function updateBoard(key, p) {
     numOfMoves++;
     $(key).text(p);
     board[i][j] = p;
+    return true;
   }
+return false;
 }
 
 //Updates board across all users
@@ -37,9 +39,7 @@ function updateBoardForAll(){
   for (var i=0; i<3; i++){
     for (var j=0; j<3; j++){
       if(board[i][j] !== 0){
-        console.log("board: ",board[i][j]);
         $(('#'+i)+j).text(board[i][j]);
-        console.log("game: ",$(('#'+i)+j).text());
       }
     }
   }

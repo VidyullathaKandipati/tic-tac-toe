@@ -68,15 +68,17 @@ $(document).ready(function(){
       if( turn === player1 ){
         if (turn !== thisPlayer){ return; }
         buttonClick.play();
-        updateBoard(this, player1);
-        turn = player2;
+        if (updateBoard(this, player1)){
+          turn = player2;
+        }
       }
       //Update player2 with their key
       else {
         if (turn !== thisPlayer){ return; }
         tinyButtonClick.play();
-        updateBoard(this, player2);
-        turn = player1;
+        if (updateBoard(this, player2)) {
+          turn = player1;
+        }
       }
       //Check for player 1 win
       debugger;

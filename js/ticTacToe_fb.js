@@ -31,15 +31,11 @@ var gameRef = database.ref('game');
 
 //Initialize game when there is any relevant change
 database.ref('game/player1').on('value',function(data){
-  console.log('CHANGE FOR player1', player1, data.val());
   if( data.val() !== "nothing" ){
     // a player has chosen which symbol they want to use, so game can now begin
     initGame(data.val());
     // // the person who didn't click to choose a key is always player2
-    console.log('about to set other player');
     if(thisPlayer === ''){
-      console.log('thisPlayer', thisPlayer);
-      console.log('player1, player2', player1, player2);
       thisPlayer = player2;
     }
 
@@ -82,11 +78,9 @@ database.ref('game/player1').on('value',function(data){
           player1: 'nothing',
           player2: 'nothing'
         });
-        console.log('reset player1/2 to NOTHING');
       }
       justLoaded = false;
     }
-    console.log(data.val());
     if (newGame){
       // updateBoardForAll();
       newGame = false;
@@ -97,8 +91,6 @@ database.ref('game/player1').on('value',function(data){
       $('#beforeClick').fadeIn("slow");
       $('.game-keys').text(''); //Resets text from all the cells
       startNewGame();
-      console.log(board);
-      console.log("Updated board");
     }
 });
 
@@ -116,7 +108,6 @@ function writeGameRT(){
       userCount: userCount,
       newGame: newGame
     };
-    console.log('ready to Write to FB:', up);
     database.ref('game').set(up);
     // gameRef.update(up);
 }

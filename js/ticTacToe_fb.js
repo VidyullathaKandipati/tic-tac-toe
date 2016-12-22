@@ -1,4 +1,38 @@
 var justLoaded = true;
+// var user1 = true;
+
+var initUsers = function (user) {
+
+  console.log('callback fired current userCount: ', user.email, userCount);
+
+  firebase.database().ref('game/userCount').once('value').then(function(data) {
+
+    console.log("local userCount",userCount,data.val());
+    userCount = data.val();
+
+    if( userCount >= 2 ){
+      // error, too many players
+      alert('too many players: ' + userCount);
+      return;
+    } else if(userCount < 0 ){
+      // nonsense value, reset to 0
+      //gameRef.update({userCount: 0});
+      userCount = 0;   // this will be updated to 1, below
+    }
+
+    if (userCount === 0) {
+      console.log('%cRESET board for first user', 'font-weight: bold');
+      startNewGame();  // resets all game vars
+      $('.game-keys').text(''); //Resets text from all the cells
+    }
+
+    userCount++;
+    console.log("users increased on page load: ",userCount);
+    writeGameRT();
+  });
+
+};
+
 
 var config = {
     apiKey: "AIzaSyANAasRAcMaE9dC4VFqIOAPnvWAWLk65Vg",
@@ -10,26 +44,41 @@ var config = {
 firebase.initializeApp(config);
 // console.log(firebase.app().name);  // "[DEFAULT]"
 //Authenticating the user login
-firebase.auth().signInWithEmailAndPassword('latha522@gmail.com', 'chicken').then(function(user){
-  if(user){
-    console.log('callback fired current userCount: ', user.email, userCount);
-    firebase.database().ref('game/userCount').once('value').then(function(data) {
-    // gameRef.on('value',function(data) {
-      console.log("local userCount",userCount,data.val().userCount);
-      userCount = data.val().userCount;
-    });
-    userCount++;
-    console.log("users increased: ",userCount);
-    // writeGameRT();
-    gameRef.update({userCount: userCount});
-  }
+// if (user1){
+  firebase.auth().signInWithEmailAndPassword('latha522@gmail.com', 'chicken').then(function(user){
+    if(user){
+      initUsers(user);
+    }
 
-}).catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  console.log(errorCode, errorMessage);
-});
+  }).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    console.log(errorCode, errorMessage);
+  });
+// }
+// else {
+//   firebase.auth().signInWithEmailAndPassword('dilip8634@gmail.com', 'chicken').then(function(user){
+//     if(user){
+//       console.log('callback fired current userCount: ', user.email, userCount);
+//       // firebase.database().ref('game/userCount').once('value').then(function(data) {
+//       // // gameRef.on('value',function(data) {
+//       //   console.log("local userCount",userCount,data.val().userCount);
+//       //   userCount = data.val().userCount;
+//       // });
+//       userCount++;
+//       console.log("users increased: ",userCount);
+//       // writeGameRT();
+//       gameRef.update({userCount: userCount});
+//     }
+//
+//   }).catch(function(error) {
+//     // Handle Errors here.
+//     var errorCode = error.code;
+//     var errorMessage = error.message;
+//     console.log(errorCode, errorMessage);
+//   });
+// }
 
 // Use the shorthand notation to retrieve the default app's services
 var storage = firebase.storage();
@@ -108,23 +157,27 @@ database.ref('game/player1').on('value',function(data){
 
     console.log('userCount:',userCount);
 
-    if(justLoaded){
-      // actions to run ONLY the first time we load data from Firebase after page load
+    // if(justLoaded){
+    //   // actions to run ONLY the first time we load data from Firebase after page load
+    //
+    //
+    //   if( userCount > 2 ){
+    //
+    //
+    //   } else if(userCount < 0 ){
+    //     // nonsense value, reset to 0
+    //     gameRef.update({userCount: 0});
+    //   } else if (userCount == 1) {
+    //     // reset the player values only if we're waiting for the second player to join
+    //     gameRef.update({
+    //       player1: 'nothing',
+    //       player2: 'nothing'
+    //     });
+    //     console.log('reset player1/2 to NOTHING');
+    //   }
+    //   justLoaded = false;
+    // }
 
-      // if(userCount < 0 ){
-      //   // nonsense value, reset to 0
-        // gameRef.update({userCount: 0});
-      // } else
-      if (userCount == 1) {
-        // reset the player values only if we're waiting for the second player to join
-        gameRef.update({
-          player1: 'nothing',
-          player2: 'nothing'
-        });
-        console.log('reset player1/2 to NOTHING');
-      }
-      justLoaded = false;
-    }
     console.log(data.val());
     console.log("Num Of Moves: ",numOfMoves);
     if (newGame){

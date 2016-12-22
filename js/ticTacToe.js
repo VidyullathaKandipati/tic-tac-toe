@@ -141,9 +141,20 @@ $(document).ready(function(){
     writeGameRT();
   }
 
-  $(window).unload(function(){
+
+  window.onunload = function(){
+
+    // decrement userCount when page is closed, and reset game board if no users remain
     userCount--;
     writeGameRT();
-  });
+    console.log('userCount after decrement on window unload', userCount);
+
+    //
+    // if(userCount === 0){
+    //   resetScores();
+    // } //else {
+    // }
+
+  };
 
 });

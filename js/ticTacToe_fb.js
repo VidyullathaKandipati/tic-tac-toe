@@ -29,13 +29,62 @@ var storage = firebase.storage();
 var database = firebase.database();
 var gameRef = database.ref('game');
 
+
+// gameRef.once('value').then(function(data) {
+//   player1 = data.val().player1;
+//   player2 = data.val().player2;
+//   userCount = data.val().userCount;
+//   turn = data.val().turn;
+//   numOfMoves = data.val().numOfMoves;
+//   player1Scores = data.val().player1Scores;
+//   player2Scores = data.val().player2Scores;
+//   drawCount = data.val().drawCount;
+//   gameOver = data.val().gameOver;
+//   board = data.val().board;
+//
+//   if (numOfMoves === 1){
+//     updateBoardForAll();
+//   }
+//
+// });
+
+
+//
+// //Updates scores when there is relevant change
+// database.ref('game/player1Scores').on('value',function(data){
+//   if (player1Scores){
+//     player1Scores = data.val().player1Scores;
+//     console.log("player1Scores updated", player1Scores);
+//     updateScores();
+//   }
+// });
+// database.ref('game/player2Scores').on('value',function(data){
+//   if(player2Scores){
+//     player2Scores = data.val().player2Scores;
+//     console.log("player2Scores updated", player2Scores);
+//     updateScores();
+//   }
+// });
+// database.ref('game/drawCount').on('value',function(data){
+//   if(drawCount){
+//     drawCount = data.val().drawCount;
+//     console.log("drawCount updated",drawCount);
+//     updateScores();
+//   }
+// });
+
+
 //Initialize game when there is any relevant change
 database.ref('game/player1').on('value',function(data){
+  console.log('CHANGE FOR player1', player1, data.val());
   if( data.val() !== "nothing" ){
     // a player has chosen which symbol they want to use, so game can now begin
     initGame(data.val());
     // // the person who didn't click to choose a key is always player2
+    console.log('about to set other player');
     if(thisPlayer === ''){
+      console.log('thisPlayer', thisPlayer);
+      console.log('player1, player2', player1, player2);
       thisPlayer = player2;
     }
 
@@ -45,6 +94,8 @@ database.ref('game/player1').on('value',function(data){
     $('#beforeClick').fadeOut(100).delay( 800 );
   }
 });
+
+
 
 // function readGameRT(){
   gameRef.on('value',function(data) {
@@ -78,9 +129,12 @@ database.ref('game/player1').on('value',function(data){
           player1: 'nothing',
           player2: 'nothing'
         });
+        console.log('reset player1/2 to NOTHING');
       }
       justLoaded = false;
     }
+    console.log(data.val());
+    console.log("Num Of Moves: ",numOfMoves);
     if (newGame){
       // updateBoardForAll();
       newGame = false;
@@ -91,6 +145,8 @@ database.ref('game/player1').on('value',function(data){
       $('#beforeClick').fadeIn("slow");
       $('.game-keys').text(''); //Resets text from all the cells
       startNewGame();
+      console.log(board);
+      console.log("Updated board");
     }
 });
 
@@ -108,6 +164,7 @@ function writeGameRT(){
       userCount: userCount,
       newGame: newGame
     };
+    console.log('ready to Write to FB:', up);
     database.ref('game').set(up);
     // gameRef.update(up);
 }

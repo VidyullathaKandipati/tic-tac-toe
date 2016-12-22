@@ -23,9 +23,6 @@ $(document).ready(function(){
   $('#new-game').on('click',refresh);
   $('#reset-scores').on('click',resetScores);
 
-
-
-
   //Event listener functions
   function displayBoard(){
     miscButtonClick.play();
@@ -71,6 +68,8 @@ $(document).ready(function(){
         if (updateBoard(this, player1)){
           turn = player2;
         }
+        // updateBoard(this, player1);
+        // turn = player2;
       }
       //Update player2 with their key
       else {
@@ -79,6 +78,8 @@ $(document).ready(function(){
         if (updateBoard(this, player2)) {
           turn = player1;
         }
+        // updateBoard(this, player2);
+        // turn = player1;
       }
       //Check for player 1 win
       if (isGameOver(player1) === "win"){

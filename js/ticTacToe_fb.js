@@ -12,10 +12,16 @@ firebase.initializeApp(config);
 //Authenticating the user login
 firebase.auth().signInWithEmailAndPassword('latha522@gmail.com', 'chicken').then(function(user){
   if(user){
-    console.log('callback fired', user.email);
+    console.log('callback fired current userCount: ', user.email, userCount);
+    firebase.database().ref('game/userCount').once('value').then(function(data) {
+    // gameRef.on('value',function(data) {
+      console.log("local userCount",userCount,data.val().userCount);
+      userCount = data.val().userCount;
+    });
     userCount++;
     console.log("users increased: ",userCount);
-    writeGameRT();
+    // writeGameRT();
+    gameRef.update({userCount: userCount});
   }
 
 }).catch(function(error) {
@@ -31,23 +37,7 @@ var database = firebase.database();
 var gameRef = database.ref('game');
 
 
-// gameRef.once('value').then(function(data) {
-//   player1 = data.val().player1;
-//   player2 = data.val().player2;
-//   userCount = data.val().userCount;
-//   turn = data.val().turn;
-//   numOfMoves = data.val().numOfMoves;
-//   player1Scores = data.val().player1Scores;
-//   player2Scores = data.val().player2Scores;
-//   drawCount = data.val().drawCount;
-//   gameOver = data.val().gameOver;
-//   board = data.val().board;
-//
-//   if (numOfMoves === 1){
-//     updateBoardForAll();
-//   }
-//
-// });
+
 
 
 //
@@ -121,10 +111,11 @@ database.ref('game/player1').on('value',function(data){
     if(justLoaded){
       // actions to run ONLY the first time we load data from Firebase after page load
 
-      if(userCount < 0 ){
-        // nonsense value, reset to 0
-        gameRef.update({userCount: 0});
-      } else if (userCount == 1) {
+      // if(userCount < 0 ){
+      //   // nonsense value, reset to 0
+        // gameRef.update({userCount: 0});
+      // } else
+      if (userCount == 1) {
         // reset the player values only if we're waiting for the second player to join
         gameRef.update({
           player1: 'nothing',

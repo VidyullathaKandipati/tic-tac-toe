@@ -13,9 +13,9 @@ $(document).ready(function(){
 
   //Resume game where we left;
   resume = localStorage["resume"] === "true" ? true : false;
-  if(resume){
-    resumeGame();
-  }
+  // if(resume){
+  //   resumeGame();
+  // }
 
   //On Click Event listeners
   $('#key1, #key2').on('click', displayBoard);
@@ -23,40 +23,63 @@ $(document).ready(function(){
   $('#new-game').on('click',refresh);
   $('#reset-scores').on('click',resetScores);
 
+
+
+
   //Event listener functions
   function displayBoard(){
-    resume = true;
-    //hide key selection
     miscButtonClick.play();
+    if (userCount !== 2){
+      alert("Two users should be logged in");
+      return;
+    }
+    resume = true;
+
+    // whoever clicked first is player1, and we set thisPlayer so we know
+    // whose turn it is
+
+    //hide key selection
     $('.keys').fadeOut("slow");
     //this need to be faded out fast for smooth transition for another header
     $('#beforeClick').fadeOut(100).delay( 800 );
     //Display game board and new game buttons
-    $('.game-board').fadeIn("slow");
-    $('.new-or-quit').fadeIn("slow");
+    // $('.game-board').fadeIn("slow");
+    // $('.new-or-reset').fadeIn("slow");
     //Display player scores on the sides of the game board
     updateScores();
-    $('.player').fadeIn("slow");
+    // $('.player').fadeIn("slow");
     initGame($(this).val());
 
-    saveGame();
+    console.log('clicked button:', player1);
+    thisPlayer = player1;
+
+    // saveGame();
     writeGameRT();
   }
 
   function updateGame() {
+    if (userCount !== 2){
+      alert("Two users should be logged in");
+      return;
+    }
     if (!gameOver)
     {
       //if it is player1 update cell with player1 key
-      if( numOfMoves%2 !== 0 ){
+      if( turn === player1 ){
+        if (turn !== thisPlayer){ return; }
         buttonClick.play();
         updateBoard(this, player1);
+        turn = player2;
       }
       //Update player2 with their key
       else {
+        if (turn !== thisPlayer){ return; }
         tinyButtonClick.play();
         updateBoard(this, player2);
+        turn = player1;
       }
       //Check for player 1 win
+      debugger;
       if (isGameOver(player1) === "win"){
         player1Scores++;
         winUpdate();
@@ -74,15 +97,20 @@ $(document).ready(function(){
         gameOver = true;
       }
     }
-    saveGame();
+    // saveGame();
     writeGameRT();
   }
 
   function refresh() {
     miscButtonClick.play();
+    if (userCount !== 2){
+      alert("Two users should be logged in");
+      return;
+    }
+    newGame = true;
     //Hide game board and after choice heading
-    $('.game-board').fadeOut("slow");
-    $('.new-or-quit').fadeOut("slow");
+    // $('.game-board').fadeOut("slow");
+    // $('.new-or-reset').fadeOut("slow");
     $('#afterClick').fadeOut(100);
 
     //Display before choice heading and buttons
@@ -91,19 +119,29 @@ $(document).ready(function(){
 
     startNewGame(); //Initializes the global game variables
     $('.game-keys').text(''); //Resets text from all the cells
-    saveGame();
+    // saveGame();
     writeGameRT();
   }
 
   //Does start a new game and resets scores
   function resetScores() {
     miscButtonClick.play();
+    if (userCount !== 2){
+      alert("Two users should be logged in");
+      return;
+    }
     refresh();
     player1Scores = 0;
     player2Scores = 0;
     drawCount = 0;
     updateScores();
-    saveGame();
+    // saveGame();
     writeGameRT();
   }
+
+  $(window).unload(function(){
+    userCount--;
+    writeGameRT();
+  });
+
 });

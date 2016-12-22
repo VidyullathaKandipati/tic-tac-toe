@@ -30,10 +30,10 @@ input{
   margin: 0 auto;
   font-weight: bold;
   font-size: 16pt;
-  display: none;
+  /*display: none;*/
 }
 .game-board{
-  display: none;
+  /*display: none;*/
   margin-top: 2em;
   text-align: center;
   width: 308px;
@@ -56,8 +56,8 @@ input{
   display: none;
   text-align: center;
 }
-.new-or-quit{
-  display: none;
+.new-or-reset{
+  /*display: none;*/
   margin-top: 10px;
   text-align: center;
 }

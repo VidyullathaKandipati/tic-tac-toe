@@ -22,7 +22,7 @@ $(document).ready(function(){
 
     //Dsiplay game board and new game buttons
     $('.game-board').addClass('visible');
-    $('.new-or-quit').addClass('visible');
+    $('.new-or-reset').addClass('visible');
     initGame($(this).val());
   }
   function initGame(playKey) {

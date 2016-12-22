@@ -1,3 +1,5 @@
+var justLoaded = true;
+
 var config = {
     apiKey: "AIzaSyANAasRAcMaE9dC4VFqIOAPnvWAWLk65Vg",
     authDomain: "tic-tac-toe-e7c22.firebaseapp.com",
@@ -6,9 +8,16 @@ var config = {
     messagingSenderId: "35961278127"
   };
 firebase.initializeApp(config);
-console.log(firebase.app().name);  // "[DEFAULT]"
+// console.log(firebase.app().name);  // "[DEFAULT]"
 //Authenticating the user login
-firebase.auth().signInWithEmailAndPassword('latha522@gmail.com', 'chicken').catch(function(error) {
+firebase.auth().signInWithEmailAndPassword('latha522@gmail.com', 'chicken').then(function(user){
+  if(user){
+    console.log('callback fired', user.email);
+    userCount++;
+    writeGameRT();
+  }
+
+}).catch(function(error) {
   // Handle Errors here.
   var errorCode = error.code;
   var errorMessage = error.message;
@@ -20,42 +29,94 @@ var storage = firebase.storage();
 var database = firebase.database();
 var gameRef = database.ref('game');
 
-// database.ref('game').once('value').then(function(data) {
+//Initialize game when there is any relevant change
+database.ref('game/player1').on('value',function(data){
+  console.log('CHANGE FOR player1', player1, data.val());
+  if( data.val() !== "nothing" ){
+    // a player has chosen which symbol they want to use, so game can now begin
+    initGame(data.val());
+    // // the person who didn't click to choose a key is always player2
+    console.log('about to set other player');
+    if(thisPlayer === ''){
+      console.log('thisPlayer', thisPlayer);
+      console.log('player1, player2', player1, player2);
+      thisPlayer = player2;
+    }
+
+    // //hide key selection
+    $('.keys').fadeOut("slow");
+    // //this need to be faded out fast for smooth transition for another header
+    $('#beforeClick').fadeOut(100).delay( 800 );
+  }
+});
 
 // function readGameRT(){
   gameRef.on('value',function(data) {
+    console.log('%cCHANGE', 'font-size: 14pt; color: red');
     player1 = data.val().player1;
     player2 = data.val().player2;
+    userCount = data.val().userCount;
+    turn = data.val().turn;
     numOfMoves = data.val().numOfMoves;
     player1Scores = data.val().player1Scores;
     player2Scores = data.val().player2Scores;
     drawCount = data.val().drawCount;
     gameOver = data.val().gameOver;
     board = data.val().board;
-    console.log(player1);
-    console.log(player2);
-    console.log(numOfMoves);
-    console.log(player1Scores);
-    console.log(player2Scores);
-    console.log(drawCount);
-    console.log(gameOver);
-    console.log(board);
+    newGame = data.val().newGame;
+    //Updates game board when there is any change
+    updateBoardForAll();
+    updateScores();
+
+    console.log('userCount:',userCount);
+
+    if(justLoaded){
+      // actions to run ONLY the first time we load data from Firebase after page load
+
+      if(userCount < 0 ){
+        // nonsense value, reset to 0
+        gameRef.update({userCount: 0});
+      } else if (userCount == 1) {
+        // reset the player values only if we're waiting for the second player to join
+        gameRef.update({
+          player1: 'nothing',
+          player2: 'nothing'
+        });
+        console.log('reset player1/2 to NOTHING');
+      }
+      justLoaded = false;
+    }
+    console.log(data.val());
+    if (newGame){
+      // updateBoardForAll();
+      newGame = false;
+      $('#afterClick').fadeOut(100);
+
+      //Display before choice heading and buttons
+      $('.keys').fadeIn("slow");
+      $('#beforeClick').fadeIn("slow");
+      $('.game-keys').text(''); //Resets text from all the cells
+      startNewGame();
+      console.log(board);
+      console.log("Updated board");
+    }
 });
-// }
 
 function writeGameRT(){
-    var up = {
+    var up =  {
       player1: player1,
       player2: player2,
+      turn: turn,
       numOfMoves: numOfMoves,
       player1Scores: player1Scores,
       player2Scores: player2Scores,
       drawCount: drawCount,
       gameOver: gameOver,
-      board: board
+      board: board,
+      userCount: userCount,
+      newGame: newGame
     };
-
-    gameRef.set(up);
-
-    console.log('updated');
+    console.log('ready to Write to FB:', up);
+    database.ref('game').set(up);
+    // gameRef.update(up);
 }

@@ -7,10 +7,12 @@ var applause = new Audio("audio/applause2_x.wav");
 var miscButtonClick = new Audio("audio/button_19.wav");
 var drawMusic = new Audio("audio/button_14.wav");
 
+var thisPlayer = '';
+
 //Display game board upon selection of the key
-var player1;
-var player2;
-var numOfMoves = 0;
+var player1 = "nothing";
+var player2 = "nothing";
+var numOfMoves = 1;
 var player1Scores = 0;
 var player2Scores = 0;
 var drawCount = 0;
@@ -24,5 +26,8 @@ var p1ScoreText;
 var p2ScoreText;
 var drawText;
 var resume;
+var turn = 0;
+var userCount = 0;
+var newGame = false;
 
 // });

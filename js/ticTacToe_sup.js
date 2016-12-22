@@ -12,8 +12,10 @@ function updateScores(){
 function initGame(playKey) {
   player1 = playKey;
   player2 = (playKey === 'X') ? 'O': 'X';
+  // thisPlayer =
   $('#afterClick').text("Player 1 has chosen "+player1+" Player 2 gets  "+player2);
-  $('#afterClick').fadeIn("slow")
+  $('#afterClick').fadeIn("slow");
+  turn = player1;
 }
 
 //Update the cell on the HTML board if not occupied already
@@ -27,6 +29,19 @@ function updateBoard(key, p) {
     numOfMoves++;
     $(key).text(p);
     board[i][j] = p;
+  }
+}
+
+//Updates board across all users
+function updateBoardForAll(){
+  for (var i=0; i<3; i++){
+    for (var j=0; j<3; j++){
+      if(board[i][j] !== 0){
+        console.log("board: ",board[i][j]);
+        $(('#'+i)+j).text(board[i][j]);
+        console.log("game: ",$(('#'+i)+j).text());
+      }
+    }
   }
 }
 
@@ -72,6 +87,9 @@ function startNewGame(){
   board = [ [0,0,0],
             [0,0,0],
             [0,0,0]];
+  player1 = "nothing";
+  player2 = "nothing";
+  thisPlayer = '';
 }
 
 //For localStorage
@@ -97,7 +115,7 @@ function saveAnimation(){
   localStorage["beforeClick"] = $('#beforeClick').is(":visible");
   localStorage["afterClick"] = $('#afterClick').is(":visible");
   localStorage["game-board"] = $('.game-board').is(":visible");
-  localStorage["new-or-quit"] = $('.new-or-quit').is(":visible");
+  localStorage["new-or-reset"] = $('.new-or-reset').is(":visible");
   localStorage["player"] = $('.player').is(":visible");
 }
 
@@ -137,7 +155,7 @@ function resumeGame(){
 //Resume html elements animation as in prevous state
 function resumeAnimation() {
   localStorage["game-board"] ? $('.game-board').fadeIn("slow") : $('.game-board').fadeOut("slow");
-  localStorage["new-or-quit"] ? $('.new-or-quit').fadeIn("slow") : $('.new-or-quit').fadeOut("slow");
+  localStorage["new-or-reset"] ? $('.new-or-reset').fadeIn("slow") : $('.new-or-reset').fadeOut("slow");
   localStorage["player"] ? $('.player').fadeIn("slow") : $('.player').fadeOut("slow");
   updateScores();
 }

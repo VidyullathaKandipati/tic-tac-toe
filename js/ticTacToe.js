@@ -39,9 +39,6 @@ $(document).ready(function(){
     $('.keys').fadeOut("slow");
     //this need to be faded out fast for smooth transition for another header
     $('#beforeClick').fadeOut(100).delay( 800 );
-    //Display game board and new game buttons
-    // $('.game-board').fadeIn("slow");
-    // $('.new-or-reset').fadeIn("slow");
     //Display player scores on the sides of the game board
     updateScores();
     // $('.player').fadeIn("slow");
@@ -59,6 +56,14 @@ $(document).ready(function(){
       alert("Two users should be logged in");
       return;
     }
+    if(gameOver){
+      alert("Game Over");
+      return;
+    }
+    if(turn !== thisPlayer){
+      alert("Its the next player's turn");
+      return;
+    }
     if (!gameOver)
     {
       //if it is player1 update cell with player1 key
@@ -68,8 +73,6 @@ $(document).ready(function(){
         if (updateBoard(this, player1)){
           turn = player2;
         }
-        // updateBoard(this, player1);
-        // turn = player2;
       }
       //Update player2 with their key
       else {
@@ -78,8 +81,6 @@ $(document).ready(function(){
         if (updateBoard(this, player2)) {
           turn = player1;
         }
-        // updateBoard(this, player2);
-        // turn = player1;
       }
       //Check for player 1 win
       if (isGameOver(player1) === "win"){
@@ -148,12 +149,6 @@ $(document).ready(function(){
     userCount--;
     writeGameRT();
     console.log('userCount after decrement on window unload', userCount);
-
-    //
-    // if(userCount === 0){
-    //   resetScores();
-    // } //else {
-    // }
 
   };
 

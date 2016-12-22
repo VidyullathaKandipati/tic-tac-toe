@@ -1,4 +1,3 @@
-var justLoaded = true;
 // var user1 = true;
 
 var initUsers = function (user) {
@@ -16,7 +15,6 @@ var initUsers = function (user) {
       return;
     } else if(userCount < 0 ){
       // nonsense value, reset to 0
-      //gameRef.update({userCount: 0});
       userCount = 0;   // this will be updated to 1, below
     }
 
@@ -156,27 +154,6 @@ database.ref('game/player1').on('value',function(data){
     updateScores();
 
     console.log('userCount:',userCount);
-
-    // if(justLoaded){
-    //   // actions to run ONLY the first time we load data from Firebase after page load
-    //
-    //
-    //   if( userCount > 2 ){
-    //
-    //
-    //   } else if(userCount < 0 ){
-    //     // nonsense value, reset to 0
-    //     gameRef.update({userCount: 0});
-    //   } else if (userCount == 1) {
-    //     // reset the player values only if we're waiting for the second player to join
-    //     gameRef.update({
-    //       player1: 'nothing',
-    //       player2: 'nothing'
-    //     });
-    //     console.log('reset player1/2 to NOTHING');
-    //   }
-    //   justLoaded = false;
-    // }
 
     console.log(data.val());
     console.log("Num Of Moves: ",numOfMoves);

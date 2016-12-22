@@ -40,6 +40,7 @@ $(document).ready(function(){
     initGame($(this).val());
 
     saveGame();
+    writeGameRT();
   }
 
   function updateGame() {
@@ -74,6 +75,7 @@ $(document).ready(function(){
       }
     }
     saveGame();
+    writeGameRT();
   }
 
   function refresh() {
@@ -90,6 +92,7 @@ $(document).ready(function(){
     startNewGame(); //Initializes the global game variables
     $('.game-keys').text(''); //Resets text from all the cells
     saveGame();
+    writeGameRT();
   }
 
   //Does start a new game and resets scores
@@ -101,5 +104,6 @@ $(document).ready(function(){
     drawCount = 0;
     updateScores();
     saveGame();
+    writeGameRT();
   }
 });

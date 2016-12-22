@@ -16,36 +16,46 @@ firebase.auth().signInWithEmailAndPassword('latha522@gmail.com', 'chicken').catc
 });
 
 // Use the shorthand notation to retrieve the default app's services
-var defaultStorage = firebase.storage();
-var defaultDatabase = firebase.database();
+var storage = firebase.storage();
+var database = firebase.database();
+var gameRef = database.ref('game');
 
-//firebase reference
-var myFirebaseRef = new Firebase("https://tic-tac-toe-e7c22.firebaseio.com/");
+// database.ref('game').once('value').then(function(data) {
 
-var gameObj = { player1: player1,
-                player2: player2,
-                numOfMoves: numOfMoves,
-                player1Scores: player1Scores,
-                player2Scores: player2Scores,
-                drawCount: drawCount,
-                gameOver: gameOver,
-                board: board
-              };
+// function readGameRT(){
+  gameRef.on('value',function(data) {
+    player1 = data.val().player1;
+    player2 = data.val().player2;
+    numOfMoves = data.val().numOfMoves;
+    player1Scores = data.val().player1Scores;
+    player2Scores = data.val().player2Scores;
+    drawCount = data.val().drawCount;
+    gameOver = data.val().gameOver;
+    board = data.val().board;
+    console.log(player1);
+    console.log(player2);
+    console.log(numOfMoves);
+    console.log(player1Scores);
+    console.log(player2Scores);
+    console.log(drawCount);
+    console.log(gameOver);
+    console.log(board);
+});
+// }
 
-myFirebaseRef.set(gameObj);
+function writeGameRT(){
+    var up = {
+      player1: player1,
+      player2: player2,
+      numOfMoves: numOfMoves,
+      player1Scores: player1Scores,
+      player2Scores: player2Scores,
+      drawCount: drawCount,
+      gameOver: gameOver,
+      board: board
+    };
 
-/* ============================================
-Sample write and ready
-======================================*/
-// myFirebaseRef.set({
-//   title: "Hello World!",
-//   author: "Firebase",
-//   location: {
-//     city: "San Francisco",
-//     state: "California",
-//     zip: 94103
-//   }
-// });
-// myFirebaseRef.child("location/city").on("value", function(snapshot) {
-//   console.log(snapshot.val());  // Alerts "San Francisco"
-// });
+    gameRef.set(up);
+
+    console.log('updated');
+}

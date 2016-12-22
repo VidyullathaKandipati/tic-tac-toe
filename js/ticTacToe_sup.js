@@ -131,6 +131,7 @@ function resumeGame(){
     }
   }
   resumeAnimation();
+  writeGameRT();
 }
 
 //Resume html elements animation as in prevous state

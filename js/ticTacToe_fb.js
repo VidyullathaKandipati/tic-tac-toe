@@ -14,6 +14,7 @@ firebase.auth().signInWithEmailAndPassword('latha522@gmail.com', 'chicken').then
   if(user){
     console.log('callback fired', user.email);
     userCount++;
+    console.log("users increased: ",userCount);
     writeGameRT();
   }
 

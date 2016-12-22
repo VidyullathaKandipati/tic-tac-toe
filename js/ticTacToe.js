@@ -81,7 +81,6 @@ $(document).ready(function(){
         }
       }
       //Check for player 1 win
-      debugger;
       if (isGameOver(player1) === "win"){
         player1Scores++;
         winUpdate();

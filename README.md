@@ -61,6 +61,11 @@ Yes you can all contribute, please email me what you have updated.
 * I seriously can't thank Luke (@textchimp) enough for patiently going through my messed up code and help me fix nasty bugs. :)
 * Thanks Joel for patiently teaching us. :)
 
+## How to get it working with firebase
+---
+### Simple and exact steps for a simple application like this one:
+Coming soon
+
 ## Contact:
 ---
 You can email me at: latha522@gmail.com

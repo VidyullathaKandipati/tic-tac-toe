@@ -51,6 +51,7 @@ So watch the space for more :)
 ## Known Issues:
 ---
 The system goes weird if both the players press 'New game' or 'Reset Scores' at a time.
+It also goes weird if we first start with no data tree in firebase.
 
 ## Contribute:
 ---

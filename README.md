@@ -73,10 +73,13 @@ Yes you can all contribute, please email me what you have updated.
 * Chose the 'SIGN_IN METHOD' as 'Email/Password' (You can chose anything, but I have tried only this way).
 * In the 'USERS' tab give the email and password you want to connect with. (You can give one account for each player, but for my app, as I am asking for sign in details in my app, I used only one account for both players and managing the accounts with a global variable).
 * Our prev firebase code, gives us our app configuration and initialisation using that.
-* Now, we sign in to firebase (logging in to fb with email and password) using the following
+* Now, we sign in to firebase (logging in to firebase with email and password) using the following
 ``` javascript
-firebase.auth().signInWithEmailAndPassword('email id given in Authentication', 'password given in Authentication').then(function(user){
-  if(user){ // Ensures that the user is created, this is needed as JS is asynchronous and would not wait for the user to be created before we do next step. This check ensures that the user is created.
+firebase.auth().signInWithEmailAndPassword('email id given in Authentication',
+'password given in Authentication').then(function(user){
+  if(user){ // Ensures that the user is created, this is needed as JS is
+    //asynchronous and would not wait for the user to be created before we do
+    //next step. This check ensures that the user is created.
     // log message or your next code to do after the user is created.
   }
   }).catch(function(error) { // Handles exception which I guess is the unexpected error.

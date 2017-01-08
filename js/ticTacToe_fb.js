@@ -1,5 +1,4 @@
 // var user1 = true;
-
 var initUsers = function (user) {
 
   console.log('callback fired current userCount: ', user.email, userCount);
@@ -12,6 +11,7 @@ var initUsers = function (user) {
     if( userCount >= 2 ){
       // error, too many players
       alert('too many players: ' + userCount);
+      userCount++;
       return;
     } else if(userCount < 0 ){
       // nonsense value, reset to 0
@@ -20,6 +20,8 @@ var initUsers = function (user) {
 
     if (userCount === 0) {
       console.log('%cRESET board for first user', 'font-weight: bold');
+      player1 = 'nothing';
+      player2 = 'nothing';
       startNewGame();  // resets all game vars
       $('.game-keys').text(''); //Resets text from all the cells
     }
@@ -54,63 +56,11 @@ firebase.initializeApp(config);
     var errorMessage = error.message;
     console.log(errorCode, errorMessage);
   });
-// }
-// else {
-//   firebase.auth().signInWithEmailAndPassword('dilip8634@gmail.com', 'chicken').then(function(user){
-//     if(user){
-//       console.log('callback fired current userCount: ', user.email, userCount);
-//       // firebase.database().ref('game/userCount').once('value').then(function(data) {
-//       // // gameRef.on('value',function(data) {
-//       //   console.log("local userCount",userCount,data.val().userCount);
-//       //   userCount = data.val().userCount;
-//       // });
-//       userCount++;
-//       console.log("users increased: ",userCount);
-//       // writeGameRT();
-//       gameRef.update({userCount: userCount});
-//     }
-//
-//   }).catch(function(error) {
-//     // Handle Errors here.
-//     var errorCode = error.code;
-//     var errorMessage = error.message;
-//     console.log(errorCode, errorMessage);
-//   });
-// }
 
 // Use the shorthand notation to retrieve the default app's services
 var storage = firebase.storage();
 var database = firebase.database();
 var gameRef = database.ref('game');
-
-
-
-
-
-//
-// //Updates scores when there is relevant change
-// database.ref('game/player1Scores').on('value',function(data){
-//   if (player1Scores){
-//     player1Scores = data.val().player1Scores;
-//     console.log("player1Scores updated", player1Scores);
-//     updateScores();
-//   }
-// });
-// database.ref('game/player2Scores').on('value',function(data){
-//   if(player2Scores){
-//     player2Scores = data.val().player2Scores;
-//     console.log("player2Scores updated", player2Scores);
-//     updateScores();
-//   }
-// });
-// database.ref('game/drawCount').on('value',function(data){
-//   if(drawCount){
-//     drawCount = data.val().drawCount;
-//     console.log("drawCount updated",drawCount);
-//     updateScores();
-//   }
-// });
-
 
 //Initialize game when there is any relevant change
 database.ref('game/player1').on('value',function(data){
@@ -133,8 +83,6 @@ database.ref('game/player1').on('value',function(data){
   }
 });
 
-
-
 // function readGameRT(){
   gameRef.on('value',function(data) {
     console.log('%cCHANGE', 'font-size: 14pt; color: red');
@@ -152,8 +100,17 @@ database.ref('game/player1').on('value',function(data){
     //Updates game board when there is any change
     updateBoardForAll();
     updateScores();
-
     console.log('userCount:',userCount);
+
+    if (userCount === 1){
+      if (player1 !== 'nothing' || player2 !== 'nothing'){
+        player1 = 'nothing';
+        player2 = 'nothing';
+      }
+      if (turn === null){
+        turn = ''
+      }
+    }
 
     console.log(data.val());
     console.log("Num Of Moves: ",numOfMoves);

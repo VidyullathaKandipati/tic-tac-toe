@@ -51,7 +51,7 @@ So watch the space for more :)
 ## Known Issues:
 ---
 The system goes weird if both the players press 'New game' or 'Reset Scores' at a time.
-It also goes weird if we first start with no data tree in firebase.
+It also goes weird if we first start with no data tree in firebase. (This is because of the order of the JS files being loaded)
 
 ## Contribute:
 ---
@@ -65,7 +65,53 @@ Yes you can all contribute, please email me what you have updated.
 ## How to get it working with firebase
 ---
 ### Simple and exact steps for a simple application like this one:
-Coming soon
+---
+* Create an account in firebase.google.com
+* Click on 'Add firebase to your web App' link.
+* Then we get some code: copy and paste it in our code. (A new file or where ever you want your FB code).
+* Click on 'Authentication' link that we can find on left hand side
+* Chose the 'SIGN_IN METHOD' as 'Email/Password' (You can chose anything, but I have tried only this way).
+* In the 'USERS' tab give the email and password you want to connect with. (You can give one account for each player, but for my app, as I am asking for sign in details in my app, I used only one account for both players and managing the accounts with a global variable).
+* Our prev firebase code, gives us our app configuration and initialisation using that.
+* Now, we sign in to firebase (logging in to fb with email and password) using the following ```
+firebase.auth().signInWithEmailAndPassword('email id given in Authentication', 'password given in Authentication').then(function(user){
+  if(user){ // Ensures that the user is created, this is needed as JS is asynchronous and would not wait for the user to be created before we do next step. This check ensures that the user is created.
+    // log message or your next code to do after the user is created.
+  }
+  }).catch(function(error) { // Handles exception which I guess is the unexpected error.
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    console.log(errorCode, errorMessage);
+  });
+
+
+```
+* Once you sign in to the firebase, we use firebase database, to synchronise between multiple users.
+  We write to the firebase database when the state of our app changes ( if there are any updates in the app).
+  We also listen (observe) for any changes that other user might have updated in firebase.
+  (Is it fascinating / frustrating to play both roles in the same app? I found it fascinating at first)
+* To write your data into firebase database ```
+database.ref('Name for your data obj').set(<data in obj form>);
+
+```
+* To listen (observe) for any change in the firebase database, that other user might have made ```
+database.ref('name of your data obj').on('value',function(data) {
+  //Your code here
+  //on('value') //means we are observing for value change on the data obj
+  //function (data) // means function argument 'data' contains the updated value from firebase database
+}
+```
+* The above code is called only if there is update on the 'data obj' in firebase database, if you want to
+update a value from firebase, at once (immediately) even if there is no update, you could use the below function ```
+firebase.database().ref('data obj').once('value').then(function(data) {
+  //Your code here
+}
+
+```
+* WOW, now you are ready for your own multi user app using firebase :D.
+* P.S. I have a plan to get the user login when he open the app and use those details to sign in to firebase.
+  I will update my progress and methods once I am done.
 
 ## Contact:
 ---

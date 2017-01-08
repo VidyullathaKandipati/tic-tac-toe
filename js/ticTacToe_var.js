@@ -29,5 +29,4 @@ var resume;
 var turn = 0;
 var userCount = 0;
 var newGame = false;
-
 // });
